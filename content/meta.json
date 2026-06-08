@@ -1,0 +1,30 @@
+{
+  "name": {
+    "zh": "金苇航 Ian",
+    "en": "Weihang (Ian) Jin"
+  },
+  "tagline": {
+    "zh": "生物医学工程师 · 建造者 · 探索者",
+    "en": "Biomedical Engineer · Builder · Explorer"
+  },
+  "location": {
+    "value": "Sydney / Online"
+  },
+  "focus": {
+    "value": "Biomedical Engineering"
+  },
+  "identity": {
+    "value": "Builder · Maker · Rider"
+  },
+  "contact": {
+    "email": "jian45154@gmail.com",
+    "phone": "0450 263 795",
+    "address": "U3002/36 Walker St., Rhodes NSW 2138",
+    "linkedin": "https://www.linkedin.com/in/weihang-ian-jin-91941314a",
+    "github": "https://github.com/jian45154"
+  },
+  "byline": {
+    "zh": "作者 / Created by Lucien Auregin",
+    "en": "Created by Lucien Auregin"
+  }
+}

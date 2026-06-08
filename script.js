@@ -1,124 +1,273 @@
-const translations = {
-  zh: {
-    "brand.eyebrow": "个人作品集 / Portfolio",
-    "brand.name": "金苇航 Ian",
-    "hero.kicker": "Biomedical engineer · Builder · Explorer",
-    "hero.byline": "作者 / Created by Lucien Auregin",
-    "hero.title": "用工程方法做生物与人之间的连接，也保留对世界的好奇心。",
-    "hero.lead":
-      "我拥有悉尼大学生物医学工程荣誉学士背景，实践覆盖快速原型、嵌入式开发、生物信号处理与实验技术，长期关注把想法做成可测试、可使用的原型。",
-    "hero.cta_primary": "查看实践",
-    "hero.cta_secondary": "了解更多",
-    "stats.title1": "方向",
-    "stats.value1": "Biomedical Engineering",
-    "stats.title2": "身份",
-    "stats.value2": "Builder · Maker · Rider",
-    "stats.title3": "地点",
-    "stats.value3": "Sydney / Online",
-    "about.eyebrow": "About",
-    "about.title": "我关注什么",
-    "about.body":
-      "我持续关注生物、自然博物学和人与环境的关系，也喜欢让工程、观察与审美在同一个项目里相遇。",
-    "projects.eyebrow": "Practice",
-    "projects.title": "实践方向",
-    "project1.title": "3D 打印与快速原型",
-    "project1.body":
-      "从结构设计、打印参数到迭代修正，关注如何把概念快速变成能测、能装配、能使用的实体。",
-    "project2.title": "嵌入式开发与生物信号处理",
-    "project2.body":
-      "结合传感器、采集、滤波和可视化，把原始信号转成可分析的数据，并尽量提高系统稳定性。",
-    "project3.title": "微流控与表面处理",
-    "project3.body":
-      "接触过微流控和 plasma surface treating 相关项目，关注材料表面、流体行为与实验可重复性。",
-    "contact.eyebrow": "Contact",
-    "contact.title": "联系我",
-    "contact.body":
-      "如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，可以通过 GitHub 了解更多。",
-    "contact.link": "GitHub · @jian45154",
-    "footer.credit": "由 Lucien Auregin 设计与构建",
-  },
-  en: {
-    "brand.eyebrow": "Portfolio / 个人作品集",
-    "brand.name": "Weihang (Ian) Jin",
-    "hero.kicker": "Biomedical engineer · Builder · Explorer",
-    "hero.byline": "Created by Lucien Auregin",
-    "hero.title": "I use engineering to connect biology and people, while staying curious about the world.",
-    "hero.lead":
-      "With an Honours degree in Biomedical Engineering from the University of Sydney, I work across rapid prototyping, embedded development, bio-signal processing, and experimental techniques to turn ideas into testable, usable prototypes.",
-    "hero.cta_primary": "View Practice",
-    "hero.cta_secondary": "About Me",
-    "stats.title1": "Focus",
-    "stats.value1": "Biomedical Engineering",
-    "stats.title2": "Identity",
-    "stats.value2": "Builder · Maker · Rider",
-    "stats.title3": "Location",
-    "stats.value3": "Sydney / Online",
-    "about.eyebrow": "About",
-    "about.title": "What I care about",
-    "about.body":
-      "I stay interested in biology, natural history, and the relationship between people and their environment. I like bringing engineering, observation, and aesthetics into the same project.",
-    "projects.eyebrow": "Practice",
-    "projects.title": "Areas of Practice",
-    "project1.title": "3D Printing and Rapid Prototyping",
-    "project1.body":
-      "From structural design and print parameters to iteration, I focus on turning concepts into objects that can be tested, assembled, and used quickly.",
-    "project2.title": "Embedded Development and Bio-signal Processing",
-    "project2.body":
-      "Combining sensors, acquisition, filtering, and visualization, I turn raw signals into analyzable data while keeping systems stable.",
-    "project3.title": "Microfluidics and Surface Treatment",
-    "project3.body":
-      "I have worked on projects related to microfluidics and plasma surface treating, with attention to surface properties, fluid behavior, and reproducibility.",
-    "contact.eyebrow": "Contact",
-    "contact.title": "Get in touch",
-    "contact.body":
-      "For collaboration, technical exchange, or an interdisciplinary idea worth exploring, find me on GitHub.",
-    "contact.link": "GitHub · @jian45154",
-    "footer.credit": "Designed and built by Lucien Auregin",
-  },
-};
+// Content loaded from JSON files
+let content = {};
+let currentLang = 'zh';
 
-const pageMetadata = {
-  zh: {
-    title: "金苇航 Ian | 个人作品集",
-    description:
-      "金苇航 Ian 的个人主页，由 Lucien Auregin 创作，记录 biomedical engineering、原型实践与跨学科兴趣。",
-  },
-  en: {
-    title: "Weihang (Ian) Jin | Personal Portfolio",
-    description:
-      "The personal portfolio of Weihang (Ian) Jin, created by Lucien Auregin, featuring biomedical engineering, prototyping, and interdisciplinary interests.",
-  },
-};
-
-const langButtons = document.querySelectorAll(".lang-btn");
-const textNodes = document.querySelectorAll("[data-i18n]");
-const descriptionMeta = document.querySelector('meta[name="description"]');
-
-function applyLanguage(lang) {
-  const dict = translations[lang] || translations.zh;
-  textNodes.forEach((node) => {
-    const key = node.getAttribute("data-i18n");
-    const value = dict[key];
-    if (typeof value === "string") {
-      node.textContent = value;
-    }
-  });
-
-  langButtons.forEach((button) => {
-    const isActive = button.dataset.lang === lang;
-    button.classList.toggle("active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-
-  document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
-  document.title = pageMetadata[lang].title;
-  descriptionMeta.setAttribute("content", pageMetadata[lang].description);
-  localStorage.setItem("site-lang", lang);
+// ── Load all content files ──────────────────────────────────────────────────
+async function loadContent() {
+  const files = ['meta', 'about', 'education', 'projects', 'experience', 'skills'];
+  const results = await Promise.all(
+    files.map(f => fetch(`./content/${f}.json`).then(r => r.json()).catch(() => ({})))
+  );
+  content = {
+    meta: results[0],
+    about: results[1],
+    education: results[2],
+    projects: results[3],
+    experience: results[4],
+    skills: results[5],
+  };
 }
 
-langButtons.forEach((button) => {
-  button.addEventListener("click", () => applyLanguage(button.dataset.lang));
-});
+// ── Render helpers ──────────────────────────────────────────────────────────
+function t(obj) {
+  if (!obj) return '';
+  return (typeof obj === 'string') ? obj : (obj[currentLang] || obj.zh || obj.en || '');
+}
 
-const savedLang = localStorage.getItem("site-lang");
-applyLanguage(savedLang === "en" ? "en" : "zh");
+function renderChips(items) {
+  return items.map(item => `<span>${item}</span>`).join('');
+}
+
+// ── Render sections ─────────────────────────────────────────────────────────
+function renderMeta() {
+  const m = content.meta;
+  document.querySelectorAll('[data-i18n]').forEach(node => {
+    const key = node.getAttribute('data-i18n');
+    const val = translations[currentLang]?.[key];
+    if (val !== undefined) node.textContent = val;
+  });
+
+  document.title = t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' });
+  document.querySelector('meta[name="description"]').setAttribute('content',
+    t({ zh: '金苇航 Ian 的个人主页', en: 'Personal portfolio of Weihang (Ian) Jin' }));
+  document.querySelector('meta[property="og:title"]').setAttribute('content',
+    t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' }));
+}
+
+function renderHero() {
+  const m = content.meta;
+  if (!m.name) return;
+
+  document.querySelector('[data-field="brand-name"]').textContent = t(m.name);
+  document.querySelector('[data-field="hero-kicker"]').textContent = t(m.tagline);
+  document.querySelector('[data-field="hero-byline"]').textContent = t(m.byline);
+  document.querySelector('[data-field="hero-lead"]').textContent = t(content.about?.profile);
+  document.querySelector('[data-field="hero-title"]').textContent =
+    currentLang === 'zh'
+      ? '用工程方法做生物与人之间的连接，也保留对世界的好奇心。'
+      : 'I use engineering to connect biology and people, while staying curious about the world.';
+}
+
+function renderPortrait() {
+  const portrait = document.querySelector('.portrait');
+  const img = document.createElement('img');
+  img.src = './assets/portrait.jpg';
+  img.alt = t(content.meta?.name) || 'Portrait';
+  img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:999px;';
+  portrait.innerHTML = '';
+  portrait.appendChild(img);
+}
+
+function renderAbout() {
+  const a = content.about;
+  if (!a) return;
+  document.querySelector('[data-field="about-body"]').textContent = t(a.body);
+  document.querySelector('[data-field="about-title"]').textContent = t(a.title);
+  document.querySelector('#about .chips').innerHTML = renderChips(a.interests || []);
+}
+
+function renderEducation() {
+  const e = content.education;
+  if (!e) return;
+
+  const section = document.querySelector('#education');
+  if (!section) return;
+
+  const cw = e.coursework || [];
+  const cwHtml = cw.map(g => `
+    <div class="coursework-group">
+      <h4>${g.category}</h4>
+      <ul>${g.items.map(i => `<li>${i}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+
+  section.querySelector('[data-field="edu-school"]').textContent = e.school;
+  section.querySelector('[data-field="edu-degree"]').textContent = e.degree;
+  section.querySelector('[data-field="edu-period"]').textContent = t(e.period);
+  section.querySelector('[data-field="edu-summary"]').textContent = t(e.summary);
+  section.querySelector('.coursework-list').innerHTML = cwHtml;
+  section.querySelector('[data-field="thesis-title"]').textContent = t(e.thesis?.title);
+  section.querySelector('[data-field="thesis-body"]').textContent = t(e.thesis?.body);
+}
+
+function renderProjects() {
+  const p = content.projects?.projects || [];
+  if (!p.length) return;
+
+  const section = document.querySelector('#projects');
+  if (!section) return;
+
+  section.querySelector('.cards').innerHTML = p.map(proj => `
+    <article class="card project-card">
+      <div class="card-header">
+        <span class="card-period">${t(proj.period)}</span>
+        <span class="card-org">${t(proj.org)}</span>
+      </div>
+      <h4 class="card-title">${t(proj.title)}</h4>
+      <p class="card-tech">${proj.tech?.join(' · ')}</p>
+      <ul class="card-highlights">
+        ${proj.highlights[currentLang]?.map(h => `<li>${h}</li>`).join('') || ''}
+      </ul>
+    </article>
+  `).join('');
+}
+
+function renderExperience() {
+  const exps = content.experience?.experience || [];
+  if (!exps.length) return;
+
+  const section = document.querySelector('#experience');
+  if (!section) return;
+
+  section.querySelector('.experience-list').innerHTML = exps.map(exp => `
+    <article class="exp-item">
+      <div class="exp-header">
+        <div class="exp-left">
+          <h4 class="exp-title">${t(exp.title)}</h4>
+          <span class="exp-company">${exp.company} · ${exp.location}</span>
+        </div>
+        <span class="exp-period">${t(exp.period)}</span>
+      </div>
+      <ul class="exp-highlights">
+        ${exp.highlights[currentLang]?.map(h => `<li>${h}</li>`).join('') || ''}
+      </ul>
+    </article>
+  `).join('');
+}
+
+function renderSkills() {
+  const skills = content.skills?.skills || [];
+  if (!skills.length) return;
+
+  const section = document.querySelector('#skills');
+  if (!section) return;
+
+  section.querySelector('.skills-grid').innerHTML = skills.map(s => `
+    <div class="skill-group">
+      <h4 class="skill-category">${s.category}</h4>
+      <div class="chips">
+        ${s.items.map(i => `<span>${i}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFooter() {
+  const year = new Date().getFullYear();
+  const name = t(content.meta?.name) || '金苇航 Ian';
+  document.querySelector('[data-field="footer-name"]').textContent = `© ${year} ${name}`;
+}
+
+// ── Full render ─────────────────────────────────────────────────────────────
+async function render() {
+  await loadContent();
+  renderMeta();
+  renderHero();
+  renderPortrait();
+  renderAbout();
+  renderEducation();
+  renderProjects();
+  renderExperience();
+  renderSkills();
+  renderFooter();
+}
+
+// ── Language switching ──────────────────────────────────────────────────────
+const translations = {
+  zh: {
+    'brand.eyebrow': '个人作品集 / Portfolio',
+    'hero.cta_primary': '查看实践',
+    'hero.cta_secondary': '了解更多',
+    'stats.title1': '方向',
+    'stats.title2': '身份',
+    'stats.title3': '地点',
+    'about.eyebrow': 'About',
+    'projects.eyebrow': 'Practice',
+    'projects.title': '项目经历',
+    'education.eyebrow': 'Education',
+    'education.title': '教育背景',
+    'experience.eyebrow': 'Experience',
+    'experience.title': '工作经历',
+    'skills.eyebrow': 'Skills',
+    'skills.title': '技能',
+    'contact.eyebrow': 'Contact',
+    'contact.title': '联系我',
+    'contact.body': '如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，可以通过 GitHub 了解更多。',
+    'contact.link': 'GitHub · @jian45154',
+    'footer.credit': '由 Lucien Auregin 设计与构建',
+  },
+  en: {
+    'brand.eyebrow': 'Portfolio / 个人作品集',
+    'hero.cta_primary': 'View Practice',
+    'hero.cta_secondary': 'About Me',
+    'stats.title1': 'Focus',
+    'stats.title2': 'Identity',
+    'stats.title3': 'Location',
+    'about.eyebrow': 'About',
+    'about.title': 'What I care about',
+    'projects.eyebrow': 'Practice',
+    'projects.title': 'Project Experience',
+    'education.eyebrow': 'Education',
+    'education.title': 'Education',
+    'experience.eyebrow': 'Experience',
+    'experience.title': 'Work Experience',
+    'skills.eyebrow': 'Skills',
+    'skills.title': 'Skills',
+    'contact.eyebrow': 'Contact',
+    'contact.title': 'Get in touch',
+    'contact.body': 'For collaboration, technical exchange, or an interdisciplinary idea worth exploring, find me on GitHub.',
+    'contact.link': 'GitHub · @jian45154',
+    'footer.credit': 'Designed and built by Lucien Auregin',
+  },
+};
+
+function applyLanguage(lang) {
+  currentLang = lang;
+
+  // Toggle [data-lang] visibility
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.style.display = el.dataset.lang === lang ? '' : 'none';
+  });
+
+  // Update lang buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.dataset.lang === lang;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
+  });
+
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+  localStorage.setItem('site-lang', lang);
+
+  // Re-render content with new language
+  renderMeta();
+  renderHero();
+  renderAbout();
+  renderEducation();
+  renderProjects();
+  renderExperience();
+  renderSkills();
+  renderFooter();
+}
+
+// ── Init ────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  await render();
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+  });
+
+  const savedLang = localStorage.getItem('site-lang');
+  if (savedLang) applyLanguage(savedLang);
+});

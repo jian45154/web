@@ -1,0 +1,20 @@
+{
+  "skills": [
+    {
+      "category": "Technical & Prototyping",
+      "items": ["3D Printing (FDM, SLA)", "Soldering (SMD & Through-Hole)", "Laser Cutting", "Oscilloscopes", "Multimeters", "Function Generators"]
+    },
+    {
+      "category": "Software & Programming",
+      "items": ["Python (NumPy, Pandas)", "MATLAB", "R", "SolidWorks", "Fusion 360 (Parametric Modelling)", "LTspice", "Eagle (PCB Design)"]
+    },
+    {
+      "category": "Professional",
+      "items": ["ISO 13485", "Root Cause Analysis", "Non-Conformance Report (NCR) Process", "Design for Manufacturing (DFM)"]
+    },
+    {
+      "category": "Languages",
+      "items": ["English (Fluent)", "Mandarin (Native)"]
+    }
+  ]
+}

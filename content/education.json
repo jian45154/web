@@ -1,0 +1,33 @@
+{
+  "school": "The University of Sydney",
+  "degree": "Bachelor of Engineering (Honours), Biomedical Engineering",
+  "period": { "zh": "2017年8月 - 2024年7月", "en": "Aug 2017 - Jul 2024" },
+  "summary": {
+    "zh": "相关课程和论文工作展示了生物医学工程原理与设计的全面基础。",
+    "en": "Relevant coursework and thesis work demonstrate a comprehensive foundation in biomedical engineering principles and design."
+  },
+  "coursework": [
+    {
+      "category": "Biomedical Fundamentals",
+      "items": ["Biomaterials", "Tissue Engineering", "Biomedical Signal Processing", "Biomechatronics"]
+    },
+    {
+      "category": "Engineering Systems & Design",
+      "items": ["Signals and Systems (Arduino)", "Circuits and Electronics", "Fluid Mechanics", "Biomedical Design and Manufacturing"]
+    },
+    {
+      "category": "Programming & Advanced Analysis",
+      "items": ["Finite Element Analysis in Bioengineering", "Statistical Analysis for Engineering (R)", "Advanced Programming for Engineering Applications (MATLAB)"]
+    }
+  ],
+  "thesis": {
+    "title": {
+      "zh": "基于等离子体处理的微流控平台仿生血管龛原型的制作",
+      "en": "Prototyping of a Biomimetic Vascular Niche via Plasma Treatment in a Microfluidic Platform"
+    },
+    "body": {
+      "zh": "详细设计、制造和实验验证用于细胞培养的微流控设备。应用先进的表面修饰技术，包括等离子体处理，以精确控制生物材料的亲水性和蛋白质粘附特性。开发功能原型以模拟生理血管龛，用于研究细胞-细胞和细胞-基质相互作用。",
+      "en": "Detailed design, fabrication, and experimental validation of a microfluidic device for cell culture applications. Applied advanced surface modification techniques, including plasma treatment, to precisely control biomaterial hydrophilicity and protein adhesion properties. Developed a functional prototype to simulate a physiological vascular niche for studying cell-cell and cell-matrix interactions."
+    }
+  }
+}

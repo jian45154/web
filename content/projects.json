@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "title": { "zh": "卧式脊柱操控器项目", "en": "Supine Spine Manipulator" },
+      "period": { "zh": "2018年10月", "en": "Oct 2018" },
+      "org": { "zh": "大学团队项目", "en": "University Group Project" },
+      "tech": ["SolidWorks (CAD)", "Finite Element Analysis (FEA)", "Laser Cutting (Acrylic)", "Multi-material Fabrication", "Pneumatic Control Systems (Arduino/Solenoids)"],
+      "highlights": {
+        "zh": [
+          "从概念到验证设计和优化功能原型。利用 CAD 驱动设计和精密激光切割创建具有各向异性机械特性的基体结构，用于针对性脊柱操控。",
+          "工程化并集成气动控制系统，包括线性执行器和压力调节器，编程控制逻辑以执行安全、受限和可重复的治疗动作。",
+          "通过结构化测试协议验证概念验证，证明其能够实现目标医疗应用所需的力和位移输出。"
+        ],
+        "en": [
+          "Designed and optimised a functional prototype from concept to validation. Utilising CAD-driven design and precision laser cutting to create a base structure with anisotropic mechanical properties for targeted spinal manipulation.",
+          "Engineered and integrated a pneumatic control system featuring linear actuators and pressure regulators, programming the control logic to execute safe, restricted, and reproducible therapeutic movements.",
+          "Validated the proof-of-concept through a structured testing protocol, demonstrating its capability to achieve specified force and displacement outputs required for the intended medical application."
+        ]
+      }
+    },
+    {
+      "title": { "zh": "人工肌腱力学测试", "en": "Mechanical Test on Artificial Tendons" },
+      "period": { "zh": "2019年11月", "en": "Nov 2019" },
+      "org": { "zh": "实习项目", "en": "Internship Project" },
+      "tech": ["Biomaterial Fabrication", "Tensile Testing Machine", "Data Analysis", "Surgical Suturing Techniques", "Experimental Design"],
+      "highlights": {
+        "zh": [
+          "制造由 3D 打印微纤维增强水凝胶基体组成的新型人工腱复合材料，使用校准的拉伸试验机系统评估关键机械性能（极限抗拉强度、杨氏模量）。",
+          "对破坏模式进行详细视频分析，识别复合材料的结构弱点和断裂扩展，为迭代设计提供关键见解。",
+          "采用外科缝合技术的新型试样安装系统消除夹具滑移和预测试损坏，测试可靠性提高 19 倍。",
+          "分析实验数据指导腱设计优化，研究纤维-凝胶比、纤维直径和结构轮廓对复合材料机械性能的影响。"
+        ],
+        "en": [
+          "Fabricated novel artificial tendon composites and systematically evaluated key mechanical properties (UTS, Young's Modulus) using a calibrated tensile testing machine.",
+          "Conducted detailed video analysis of failure modes to identify structural weaknesses and fracture propagation, providing critical insights for iterative design.",
+          "Novel specimen mounting system using surgical suture technique eliminated grip slippage, increasing testing reliability by a factor of 19.",
+          "Analysed experimental data to guide tendon design refinement, investigating effects of fibre-to-gel ratio, fibre diameter, and structural profile."
+        ]
+      }
+    },
+    {
+      "title": { "zh": "后置 3D 打印机线轴支架重新设计", "en": "Rear-Mount 3D Printer Spool Holder Redesign" },
+      "period": { "zh": "2025年7月", "en": "Jul 2025" },
+      "org": { "zh": "个人项目", "en": "Solo Project" },
+      "tech": ["Fusion 360 (Parametric CAD, FEA)", "Design for Manufacture (DFM)", "Mechanical Testing"],
+      "highlights": {
+        "zh": [
+          "识别并分析 OEM 侧面线轴支架造成的关键工作空间效率问题。",
+          "完成从概念到验证的完整设计周期：基准化解决方案、定义工程要求（非破坏性安装、3kg+ 负载、优化灯丝路径），使用 Fusion 360 建模迭代原型。",
+          "对关键部件进行静态力分析 (FEA)，预测应力集中并优化制造可靠性设计。",
+          "后置设计将工作台打印机容量从 4 台增至 5 台（+25%），不扩大物理占用。",
+          "100+ 小时连续打印验证，零机械故障。"
+        ],
+        "en": [
+          "Identified and analysed critical workspace inefficiency caused by OEM side-mounted spool holder consuming excessive lateral space.",
+          "Spearheaded full design cycle: benchmarked solutions, defined engineering requirements (non-destructive install, 3kg+ load, optimised filament path), modelled iterative prototypes in Fusion 360.",
+          "Static force analysis (FEA) on critical components to predict stress concentrations and optimise DFM reliability.",
+          "Rear-mount design increased workbench capacity by 25% (4 to 5 units) without expanding footprint.",
+          "Validated through 100+ hours of continuous printing with zero mechanical failures."
+        ]
+      }
+    }
+  ]
+}

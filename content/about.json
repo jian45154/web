@@ -1,0 +1,23 @@
+{
+  "profile": {
+    "zh": "悉尼大学生物医学工程荣誉学士背景，实践覆盖快速原型、嵌入式开发、生物信号处理与实验技术，长期关注把想法做成可测试、可使用的原型。",
+    "en": "With an Honours degree in Biomedical Engineering from the University of Sydney, I work across rapid prototyping, embedded development, bio-signal processing, and experimental techniques to turn ideas into testable, usable prototypes."
+  },
+  "title": {
+    "zh": "我关注什么",
+    "en": "What I care about"
+  },
+  "body": {
+    "zh": "我持续关注生物、自然博物学和人与环境的关系，也喜欢让工程、观察与审美在同一个项目里相遇。",
+    "en": "I stay interested in biology, natural history, and the relationship between people and their environment. I like bringing engineering, observation, and aesthetics into the same project."
+  },
+  "interests": [
+    "3D printing", "Embedded development", "Bio-signal processing",
+    "Microfluidics", "Plasma surface treatment", "Road cycling",
+    "Bikepacking", "Hiking", "Photography", "Camping",
+    "Posture correction", "Lower-limb alignment", "Natural history",
+    "Traditional Chinese medicine", "Pop psychology",
+    "Deep-sky photography", "Anime",
+    "Mechanical curiosity", "Metaphysical curiosity"
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "experience": [
+    {
+      "company": "Cochlear", "location": "Lane Cove, Australia",
+      "title": { "zh": "电子装配员", "en": "Electronic Assembler" },
+      "period": { "zh": "2025年6月 - 2025年", "en": "Jun 2025 - 2025" },
+      "highlights": {
+        "zh": [
+          "在 3 类有源植入式医疗器械生产线获得实践经验，支持 NCR 工程评估，协助工艺工程团队改进制造工艺。",
+          "通过识别问题并提出原因假设和可能的解决方案，参与 QMS 持续改进活动。"
+        ],
+        "en": [
+          "Gained hands-on experience in Class 3 Active Implantable Medical Devices production line. Supported NCR engineering evaluation and assisted process engineering team.",
+          "Participated in QMS Continuous Improvement Activities by identifying issues and proposing hypotheses of causes and possible solutions."
+        ]
+      }
+    },
+    {
+      "company": "Decathlon", "location": "Tempe, Australia",
+      "title": { "zh": "车间顾问", "en": "Workshop Consultant" },
+      "period": { "zh": "2024年11月 - 2025年5月", "en": "Nov 2024 - May 2025" },
+      "highlights": {
+        "zh": [
+          "管理轮滑和球拍运动主车间，亲自和电话处理客户咨询，扩展车间容量。",
+          "通过改进的标签和存储系统，将平均周转时间从一周缩短至三天。"
+        ],
+        "en": [
+          "Managed flagship workshop for wheel sports and racket sports. Addressed customer enquiries in person and via phone.",
+          "Reduced average turnaround time from one week to three days by implementing improved labelling and storage system."
+        ]
+      }
+    },
+    {
+      "company": "99 Bikes", "location": "Artarmon, Australia",
+      "title": { "zh": "自行车技师", "en": "Bike Mechanic" },
+      "period": { "zh": "2024年6月 - 2024年11月", "en": "Jun 2024 - Nov 2024" },
+      "highlights": {
+        "zh": [
+          "精确诊断和修复机械/技术自行车问题，执行日常维护确保最佳性能。",
+          "向客户宣传自行车护理、维护最佳实践，推广商店服务、升级和配件。",
+          "监督库存控制，与供应商协调及时补货，在快节奏环境中高效协作。"
+        ],
+        "en": [
+          "Diagnose and repair mechanical and technical bike issues with precision. Perform routine servicing for optimal bike performance.",
+          "Educate customers on bike care, maintenance best practices, and product features. Promote shop services and accessories.",
+          "Oversee inventory control, coordinate with suppliers for timely restocking. Collaborate efficiently in fast-paced environment."
+        ]
+      }
+    },
+    {
+      "company": "Jacaranda Flame Consulting", "location": "Chippendale, Australia",
+      "title": { "zh": "工程顾问", "en": "Engineering Consultant" },
+      "period": { "zh": "2023年6月 - 2023年7月", "en": "Jun 2023 - Jul 2023" },
+      "highlights": {
+        "zh": [
+          "与大学和行业合作伙伴组成多学科团队，设计将退役火车车厢改造为紧急灾难避难所的创新方案。",
+          "使用多层材料设计紧凑隔热机械系统（优化空间和成本），开发支持六名住户日常能源需求的太阳能电力系统。",
+          "交付满足移动性、可持续性和紧急准备关键要求的全尺寸原型。"
+        ],
+        "en": [
+          "Collaborated in multidisciplinary team to design innovative solution repurposing decommissioned train carriages into emergency disaster shelters.",
+          "Designed compact thermally insulated mechanical system using multi-layer materials (optimised space and cost), developed solar-powered electrical system for six occupants.",
+          "Delivered full-scale prototype meeting key requirements for mobility, sustainability, and emergency readiness."
+        ]
+      }
+    },
+    {
+      "company": "Economist Intelligence: Clearstate", "location": "Shanghai, China",
+      "title": { "zh": "顾问实习生", "en": "Consultant Intern" },
+      "period": { "zh": "2021年11月 - 2022年6月", "en": "Nov 2021 - Jun 2022" },
+      "highlights": {
+        "zh": [
+          "在前三个月内牵头高海拔实验室的市场研究和上市策略，翻译和完善用户问卷以实现精确市场分析。",
+          "对 30+ 位 KOL（临床医生、外科医生、医院科室主任）进行深入访谈，评估市场需求和期望。",
+          "开发数据驱动的营销策略，优化医疗器械产品的定位和商业化。"
+        ],
+        "en": [
+          "Spearheaded market research and launch strategy for High Altitude Laboratory within first three months. Translated and refined user questionnaires for precise market analysis.",
+          "Conducted in-depth interviews with 30+ KOLs (clinicians, surgeons, hospital department heads) to assess market needs.",
+          "Developed data-driven marketing strategies to optimise product positioning and commercialization for medical laboratory equipment."
+        ]
+      }
+    },
+    {
+      "company": "Pfizer", "location": "Beijing, China",
+      "title": { "zh": "市场营销实习生", "en": "Marketing Internship" },
+      "period": { "zh": "2021年3月 - 2021年8月", "en": "Mar 2021 - Aug 2021" },
+      "highlights": {
+        "zh": [
+          "组织执行以 HCP 为重点的推广活动（如演讲者项目、CME），推动治疗/医疗器械的品牌认知度。",
+          "管理促销材料端到端生产，确保符合监管指南并与供应商协调及时交付。",
+          "通过系统市场监测和 KOL 参与进行竞争情报，为商业策略提供信息。"
+        ],
+        "en": [
+          "Organised and executed HCP-focused promotional events (speaker programs, CMEs) to drive brand awareness and adoption.",
+          "Managed end-to-end production of promotional materials, ensuring regulatory compliance while coordinating vendor delivery.",
+          "Conducted competitive intelligence through systematic market surveillance and KOL engagements to inform commercial strategy."
+        ]
+      }
+    },
+    {
+      "company": "Molnlycke Health Care CH", "location": "Beijing, China",
+      "title": { "zh": "政府事务专员", "en": "Government Affairs Specialist" },
+      "period": { "zh": "2020年9月 - 2021年2月", "en": "Sep 2020 - Feb 2021" },
+      "highlights": {
+        "zh": ["管理监管提交文书，确保公司产品符合中国市场准入要求。"],
+        "en": ["Managed regulatory submission paperwork to ensure company products complied with Chinese market entry requirements."]
+      }
+    },
+    {
+      "company": "Costa Coffee", "location": "Beijing, China",
+      "title": { "zh": "咖啡师", "en": "Barista" },
+      "period": { "zh": "2020年8月 - 2021年2月", "en": "Aug 2020 - Feb 2021" },
+      "highlights": {
+        "zh": ["在快节奏环境中提供大量客户服务，管理运营并组织促销活动。"],
+        "en": ["Provided high-volume customer service in fast-paced environment, managing operations and organising promotional events."]
+      }
+    }
+  ]
+}
