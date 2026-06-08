@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucien Auregin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --accent-green: #0f766e;
+      --accent-amber: #b45309;
+      --text: #1f1b16;
+      --text-secondary: #63584b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .lang-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      z-index: 100;
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-family: inherit;
+      padding: 0.25rem 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .lang-toggle button:hover,
+    .lang-toggle button.active {
+      color: var(--accent-green);
+    }
+
+    [data-lang] {
+      display: none;
+    }
+
+    [data-lang].active {
+      display: block;
+    }
+
+    .container {
+      min-height: 100vh;
+      padding: 0 18vw;
+    }
+
+    nav {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(99, 88, 75, 0.15);
+      margin-bottom: 4rem;
+    }
+
+    .nav-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .hero {
+      padding: 4rem 0 6rem;
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-bio {
+      max-width: 65ch;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(99, 88, 75, 0.15);
+      margin: 4rem 0;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .practices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .practice-item {
+      position: relative;
+    }
+
+    .practice-item::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      left: 0;
+      width: 2rem;
+      height: 2px;
+      background: var(--accent-green);
+    }
+
+    .practice-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .practice-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .chips-section {
+      margin-bottom: 4rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(99, 88, 75, 0.25);
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+      transition: all 0.2s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .chip--accent {
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    .contact {
+      padding: 4rem 0 6rem;
+    }
+
+    .contact-link {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent-green);
+      padding-bottom: 0.25rem;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--accent-green);
+    }
+
+    .contact-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    footer {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(99, 88, 75, 0.15);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      .practices {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lang-toggle">
+    <button class="active" onclick="switchLang('zh')">中文</button>
+    <span style="color: var(--text-secondary);">/</span>
+    <button onclick="switchLang('en')">EN</button>
+  </div>
+
+  <div class="container">
+    <nav>
+      <span class="nav-title">Lucien Auregin</span>
+    </nav>
+
+    <section class="hero">
+      <h1 class="hero-title">
+        <span data-lang="zh" class="active">Lucien Auregin</span>
+        <span data-lang="en">Lucien Auregin</span>
+      </h1>
+      <p class="hero-subtitle">
+        <span data-lang="zh" class="active">生物医学工程师 · 建造者 · 探索者</span>
+        <span data-lang="en">Biomedical Engineer · Builder · Explorer</span>
+      </p>
+      <p class="hero-bio">
+        <span data-lang="zh" class="active">悉尼大学生物医学工程学士（荣誉），专注于原型设计、嵌入式系统与生物信号处理领域。</span>
+        <span data-lang="en">BSc Biomedical Engineering (Honours) at University of Sydney, focusing on prototyping, embedded systems and bio-signal processing.</span>
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="practices-section">
+      <h2 class="section-title">
+        <span data-lang="zh" class="active">实践方向</span>
+        <span data-lang="en">Practice Areas</span>
+      </h2>
+      <div class="practices">
+        <div class="practice-item">
+          <h3 class="practice-title">
+            <span data-lang="zh" class="active">3D 打印与快速原型</span>
+            <span data-lang="en">3D Printing & Rapid Prototyping</span>
+          </h3>
+          <p class="practice-desc">
+            <span data-lang="zh" class="active">将创意转化为可触摸的实物，从概念验证到功能原型。</span>
+            <span data-lang="en">Transforming ideas into tangible forms, from concept to functional prototypes.</span>
+          </p>
+        </div>
+        <div class="practice-item">
+          <h3 class="practice-title">
+            <span data-lang="zh" class="active">嵌入式开发与生物信号处理</span>
+            <span data-lang="en">Embedded Development & Bio-signal Processing</span>
+          </h3>
+          <p class="practice-desc">
+            <span data-lang="zh" class="active">软硬件结合，从传感器到算法，构建完整的生物信号采集与分析系统。</span>
+            <span data-lang="en">Bridging hardware and software, building complete bio-signal acquisition and analysis systems.</span>
+          </p>
+        </div>
+        <div class="practice-item">
+          <h3 class="practice-title">
+            <span data-lang="zh" class="active">微流控与表面处理</span>
+            <span data-lang="en">Microfluidics & Surface Treatment</span>
+          </h3>
+          <p class="practice-desc">
+            <span data-lang="zh" class="active">微观世界的精密控制，探索等离子体表面处理的应用边界。</span>
+            <span data-lang="en">Precision control at micro scale, exploring applications of plasma surface treatment.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="chips-section">
+      <h2 class="section-title">About</h2>
+      <div class="chips">
+        <span class="chip">3D printing</span>
+        <span class="chip">Embedded development</span>
+        <span class="chip chip--accent">Bio-signal processing</span>
+        <span class="chip">Microfluidics</span>
+        <span class="chip">Plasma surface treatment</span>
+        <span class="chip chip--accent">Road cycling</span>
+        <span class="chip">Bikepacking</span>
+        <span class="chip">Hiking</span>
+        <span class="chip">Photography</span>
+        <span class="chip">Camping</span>
+        <span class="chip chip--accent">Posture correction</span>
+        <span class="chip">Lower-limb alignment</span>
+        <span class="chip">Natural history</span>
+        <span class="chip">Traditional Chinese medicine</span>
+        <span class="chip">Pop psychology</span>
+        <span class="chip">Deep-sky photography</span>
+        <span class="chip">Anime</span>
+        <span class="chip chip--accent">Mechanical curiosity</span>
+        <span class="chip">Metaphysical curiosity</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="contact">
+      <a href="https://github.com/jian45154" class="contact-link" target="_blank" rel="noopener">
+        <span data-lang="zh" class="active">GitHub @jian45154</span>
+        <span data-lang="en">GitHub @jian45154</span>
+      </a>
+      <p class="contact-note">
+        <span data-lang="zh" class="active">通过 GitHub 联系我</span>
+        <span data-lang="en">Connect via GitHub</span>
+      </p>
+    </section>
+
+    <footer>
+      <span data-lang="zh" class="active">© 2024 Lucien Auregin</span>
+      <span data-lang="en">© 2024 Lucien Auregin</span>
+    </footer>
+  </div>
+
+  <script>
+    function switchLang(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+        el.classList.add('active');
+      });
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`.lang-toggle button[onclick="switchLang('${lang}')"]`).classList.add('active');
+    }
+  </script>
+</body>
+</html>
