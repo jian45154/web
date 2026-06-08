@@ -1,9 +1,9 @@
 const translations = {
   zh: {
     "brand.eyebrow": "个人作品集 / Portfolio",
-    "brand.name": "Lucien Auregin",
+    "brand.name": "金苇航 Ian",
     "hero.kicker": "Biomedical engineer · Builder · Explorer",
-    "hero.byline": "作者 / Created by 金苇航 Ian",
+    "hero.byline": "作者 / Created by Lucien Auregin",
     "hero.title": "用工程方法做生物与人之间的连接，也保留对世界的好奇心。",
     "hero.lead":
       "我拥有悉尼大学生物医学工程荣誉学士背景，实践覆盖快速原型、嵌入式开发、生物信号处理与实验技术，长期关注把想法做成可测试、可使用的原型。",
@@ -35,13 +35,13 @@ const translations = {
     "contact.body":
       "如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，可以通过 GitHub 了解更多。",
     "contact.link": "GitHub · @jian45154",
-    "footer.credit": "由金苇航 Ian 设计与构建",
+    "footer.credit": "由 Lucien Auregin 设计与构建",
   },
   en: {
     "brand.eyebrow": "Portfolio / 个人作品集",
-    "brand.name": "Lucien Auregin",
+    "brand.name": "Weihang (Ian) Jin",
     "hero.kicker": "Biomedical engineer · Builder · Explorer",
-    "hero.byline": "Created by 金苇航 Ian",
+    "hero.byline": "Created by Lucien Auregin",
     "hero.title": "I use engineering to connect biology and people, while staying curious about the world.",
     "hero.lead":
       "With an Honours degree in Biomedical Engineering from the University of Sydney, I work across rapid prototyping, embedded development, bio-signal processing, and experimental techniques to turn ideas into testable, usable prototypes.",
@@ -73,20 +73,20 @@ const translations = {
     "contact.body":
       "For collaboration, technical exchange, or an interdisciplinary idea worth exploring, find me on GitHub.",
     "contact.link": "GitHub · @jian45154",
-    "footer.credit": "Designed and built by 金苇航 Ian",
+    "footer.credit": "Designed and built by Lucien Auregin",
   },
 };
 
 const pageMetadata = {
   zh: {
-    title: "Lucien Auregin | 个人作品集",
+    title: "金苇航 Ian | 个人作品集",
     description:
-      "Lucien Auregin 的个人主页，由金苇航 Ian 创作，记录 biomedical engineering、原型实践与跨学科兴趣。",
+      "金苇航 Ian 的个人主页，由 Lucien Auregin 创作，记录 biomedical engineering、原型实践与跨学科兴趣。",
   },
   en: {
-    title: "Lucien Auregin | Personal Portfolio",
+    title: "Weihang (Ian) Jin | Personal Portfolio",
     description:
-      "The personal portfolio of Lucien Auregin, created by 金苇航 Ian, featuring biomedical engineering, prototyping, and interdisciplinary interests.",
+      "The personal portfolio of Weihang (Ian) Jin, created by Lucien Auregin, featuring biomedical engineering, prototyping, and interdisciplinary interests.",
   },
 };
 

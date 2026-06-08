@@ -1,6 +1,6 @@
-# Lucien Auregin
+# 金苇航 Ian
 
-Personal portfolio for **Lucien Auregin**, designed and built by **金苇航 Ian**.
+Personal portfolio for **金苇航 Ian**, designed and built by **Lucien Auregin**.
 
 The site presents biomedical engineering practice, hands-on prototyping, and interdisciplinary interests in Chinese and English.
 
