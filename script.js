@@ -6,7 +6,13 @@ let currentLang = 'zh';
 async function loadContent() {
   const files = ['meta', 'about', 'education', 'projects', 'experience', 'skills', 'contributions'];
   const results = await Promise.all(
-    files.map(f => fetch(`./content/${f}.json`).then(r => r.json()).catch(() => ({})))
+    files.map(async (file) => {
+      const response = await fetch(`./content/${file}.json`);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${file}.json (${response.status})`);
+      }
+      return response.json();
+    })
   );
   content = {
     meta: results[0],
@@ -59,14 +65,13 @@ function renderHero() {
 }
 
 function renderPortrait() {
-  const portrait = document.querySelector('.portrait');
-  if (!portrait) return;
-  const img = document.createElement('img');
-  img.src = './assets/portrait.jpg';
-  img.alt = t(content.meta?.name) || 'Portrait';
-  img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:999px;';
-  portrait.innerHTML = '';
-  portrait.appendChild(img);
+  document.querySelectorAll('.portrait').forEach(portrait => {
+    const img = document.createElement('img');
+    img.src = './assets/portrait.jpg';
+    img.alt = t(content.meta?.name) || 'Portrait';
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:999px;';
+    portrait.replaceChildren(img);
+  });
 }
 
 function renderAbout() {
@@ -263,6 +268,7 @@ const translations = {
 };
 
 function applyLanguage(lang) {
+  if (!translations[lang]) lang = 'zh';
   currentLang = lang;
 
   // Toggle [data-lang] visibility
@@ -294,7 +300,15 @@ function applyLanguage(lang) {
 
 // ── Init ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  await render();
+  try {
+    await render();
+  } catch (error) {
+    console.error('Unable to load portfolio content:', error);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.disabled = true;
+    });
+    return;
+  }
 
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
