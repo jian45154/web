@@ -20,6 +20,7 @@ Then open [http://localhost:8000](http://localhost:8000).
 
 ## Structure
 
-- `index.html` - content and page structure
+- `index.html` - concise portfolio landing page
+- `details.html` - education, projects, experience, skills, and contributions
 - `styles.css` - responsive visual design
 - `script.js` - bilingual content switching

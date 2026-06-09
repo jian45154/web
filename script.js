@@ -43,10 +43,15 @@ function renderMeta() {
     if (val !== undefined) node.textContent = val;
   });
 
-  document.title = t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' });
-  document.querySelector('meta[name="description"]').setAttribute('content',
-    t({ zh: '金苇航 Ian 的个人主页', en: 'Personal portfolio of Weihang (Ian) Jin' }));
-  document.querySelector('meta[property="og:title"]').setAttribute('content',
+  const isDetailsPage = document.body.classList.contains('details-page');
+  document.title = isDetailsPage
+    ? t({ zh: '经历 | 金苇航 Ian', en: 'Experience | Weihang (Ian) Jin' })
+    : t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' });
+  document.querySelector('meta[name="description"]')?.setAttribute('content',
+    isDetailsPage
+      ? t({ zh: '金苇航 Ian 的教育、项目与工作经历', en: 'Education, projects, and work experience of Weihang (Ian) Jin' })
+      : t({ zh: '金苇航 Ian 的个人主页', en: 'Personal portfolio of Weihang (Ian) Jin' }));
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content',
     t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' }));
 }
 
@@ -54,14 +59,18 @@ function renderHero() {
   const m = content.meta;
   if (!m?.name) return;
 
-  document.querySelector('[data-field="brand-name"]').textContent = t(m.name);
-  document.querySelector('[data-field="hero-kicker"]').textContent = t(m.tagline);
-  document.querySelector('[data-field="hero-byline"]').textContent = t(m.byline);
-  document.querySelector('[data-field="hero-lead"]').textContent = t(content.about?.profile);
-  document.querySelector('[data-field="hero-title"]').textContent =
+  const setText = (selector, value) => {
+    const node = document.querySelector(selector);
+    if (node) node.textContent = value;
+  };
+  setText('[data-field="brand-name"]', t(m.name));
+  setText('[data-field="hero-kicker"]', t(m.tagline));
+  setText('[data-field="hero-byline"]', t(m.byline));
+  setText('[data-field="hero-lead"]', t(content.about?.profile));
+  setText('[data-field="hero-title"]',
     currentLang === 'zh'
       ? '用工程方法做生物与人之间的连接，也保留对世界的好奇心。'
-      : 'I use engineering to connect biology and people, while staying curious about the world.';
+      : 'I use engineering to connect biology and people, while staying curious about the world.');
 }
 
 function renderPortrait() {
@@ -77,8 +86,10 @@ function renderPortrait() {
 function renderAbout() {
   const a = content.about;
   if (!a) return;
-  document.querySelector('[data-field="about-body"]').textContent = t(a.body);
-  document.querySelector('[data-field="about-title"]').textContent = t(a.title);
+  const body = document.querySelector('[data-field="about-body"]');
+  const title = document.querySelector('[data-field="about-title"]');
+  if (body) body.textContent = t(a.body);
+  if (title) title.textContent = t(a.title);
   const chipsEl = document.querySelector('#about .chips');
   if (chipsEl) chipsEl.innerHTML = renderChips(a.interests || []);
 }
@@ -195,7 +206,8 @@ function renderSkills() {
 function renderFooter() {
   const year = new Date().getFullYear();
   const name = t(content.meta?.name) || '金苇航 Ian';
-  document.querySelector('[data-field="footer-name"]').textContent = `© ${year} ${name}`;
+  const footer = document.querySelector('[data-field="footer-name"]');
+  if (footer) footer.textContent = `© ${year} ${name}`;
 }
 
 // ── Full render ─────────────────────────────────────────────────────────────
@@ -239,6 +251,13 @@ const translations = {
     'contact.body': '如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，可以通过 GitHub 了解更多。',
     'contact.link': 'GitHub · @jian45154',
     'footer.credit': '由 Lucien Auregin 设计与构建',
+    'home.explore': '了解我的经历',
+    'home.location': '悉尼 / 线上',
+    'home.focus': '生物医学工程',
+    'details.back': '返回主页',
+    'details.eyebrow': '个人档案 / Profile',
+    'details.experience': '工作经历',
+    'details.projects': '项目经历',
   },
   en: {
     'brand.eyebrow': 'Portfolio / 个人作品集',
@@ -264,6 +283,13 @@ const translations = {
     'contact.body': 'For collaboration, technical exchange, or an interdisciplinary idea worth exploring, find me on GitHub.',
     'contact.link': 'GitHub · @jian45154',
     'footer.credit': 'Designed and built by Lucien Auregin',
+    'home.explore': 'Explore my experience',
+    'home.location': 'Sydney / Online',
+    'home.focus': 'Biomedical Engineering',
+    'details.back': 'Back home',
+    'details.eyebrow': 'Profile / 个人档案',
+    'details.experience': 'Work experience',
+    'details.projects': 'Projects',
   },
 };
 
@@ -272,7 +298,7 @@ function applyLanguage(lang) {
   currentLang = lang;
 
   // Toggle [data-lang] visibility
-  document.querySelectorAll('[data-lang]').forEach(el => {
+  document.querySelectorAll('[data-lang]:not(.lang-btn)').forEach(el => {
     el.style.display = el.dataset.lang === lang ? '' : 'none';
   });
 
