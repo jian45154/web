@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Personal portfolio of Weihang (Ian) Jin" />
-    <meta name="theme-color" content="#eee9df" />
+    <meta name="theme-color" content="#f5f5f7" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Weihang (Ian) Jin | Personal Portfolio" />
     <meta property="og:description" content="Biomedical engineering, practical prototyping, and interdisciplinary curiosity." />
@@ -17,48 +17,165 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="home-page">
+  <body>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
-    <div class="backdrop"></div>
-    <main id="main-content" class="page home-shell">
-      <header class="site-header">
-        <a class="wordmark" href="./" aria-label="Home">WJ</a>
-        <div class="lang-switch" aria-label="Language switch">
-          <button class="lang-btn active" type="button" data-lang="zh" aria-pressed="true">中文</button>
-          <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-      </header>
 
-      <section class="home-hero">
-        <div class="home-copy">
-          <p class="kicker" data-field="hero-kicker">生物医学工程师 · 建造者 · 探索者</p>
-          <h1 class="home-name" data-field="brand-name">金苇航 Ian</h1>
-          <h2 data-field="hero-title">用工程方法做生物与人之间的连接，也保留对世界的好奇心。</h2>
-          <p class="lead" data-field="hero-lead">悉尼大学生物医学工程荣誉学士背景，实践覆盖快速原型、嵌入式开发、生物信号处理与实验技术。</p>
-          <div class="home-actions">
-            <a class="text-link primary-link" href="./details.html">
-              <span data-i18n="home.explore">了解我的经历</span>
-              <span aria-hidden="true">↗</span>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Home">WJ</a>
+      <nav class="site-nav" aria-label="Page navigation">
+        <a href="#personal" data-i18n="nav.personal">业余</a>
+        <a href="#work" data-i18n="nav.work">工作</a>
+      </nav>
+      <div class="lang-switch" aria-label="Language switch">
+        <button class="lang-btn active" type="button" data-lang="zh" aria-pressed="true">中文</button>
+        <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section id="top" class="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow" data-field="hero-kicker">生物医学工程师 · 建造者 · 探索者</p>
+          <h1 data-field="brand-name">金苇航 Ian</h1>
+          <p class="hero-statement" data-field="hero-title">用工程方法做生物与人之间的连接，也保留对世界的好奇心。</p>
+          <p class="hero-lead" data-field="hero-lead">悉尼大学生物医学工程荣誉学士背景，实践覆盖快速原型、嵌入式开发、生物信号处理与实验技术。</p>
+
+          <div class="hero-routes" aria-label="Explore portfolio">
+            <a class="route-card route-card-personal" href="#personal">
+              <span class="route-index">01</span>
+              <strong data-i18n="hero.personal">业余与好奇</strong>
+              <span data-i18n="hero.personalNote">摄影、骑行、自然与动手探索</span>
+              <span class="route-arrow" aria-hidden="true">↓</span>
             </a>
-            <a class="text-link" href="https://github.com/jian45154" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="text-link" href="mailto:jian45154@gmail.com">Email</a>
+            <a class="route-card route-card-work" href="#work">
+              <span class="route-index">02</span>
+              <strong data-i18n="hero.work">工作与实践</strong>
+              <span data-i18n="hero.workNote">工程、项目、经历与技能</span>
+              <span class="route-arrow" aria-hidden="true">↓</span>
+            </a>
           </div>
         </div>
 
-        <figure class="home-portrait">
-          <div class="portrait"><span>WJ</span></div>
+        <figure class="hero-portrait reveal">
+          <img src="./assets/portrait.jpeg" alt="Weihang (Ian) Jin photographing outdoors" />
           <figcaption>
-            <span data-i18n="home.location">Sydney / Online</span>
-            <span data-i18n="home.focus">Biomedical Engineering</span>
+            <span data-i18n="home.location">悉尼 / 线上</span>
+            <span data-i18n="portrait.caption">在路上观察，也在工作台上验证。</span>
           </figcaption>
         </figure>
       </section>
 
-      <footer class="home-footer">
-        <span data-field="footer-name">© 2026 金苇航 Ian</span>
-        <span data-field="hero-byline">作者 / Created by Lucien Auregin</span>
-      </footer>
+      <section id="personal" class="chapter chapter-personal">
+        <div class="chapter-intro reveal">
+          <p class="chapter-number">01 / Personal</p>
+          <h2 data-i18n="personal.title">业余，是另一种认真。</h2>
+          <p data-field="about-body">我持续关注生物、自然博物学和人与环境的关系，也喜欢让工程、观察与审美在同一个项目里相遇。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <span>01</span>
+            <h3 data-i18n="practice.prototype">3D 打印与快速原型</h3>
+            <p data-i18n="practice.prototypeBody">将创意转化为可触摸的实物，从概念验证到功能原型。</p>
+          </article>
+          <article class="feature-card reveal">
+            <span>02</span>
+            <h3 data-i18n="practice.signal">嵌入式开发与生物信号处理</h3>
+            <p data-i18n="practice.signalBody">连接传感器、控制与算法，构建完整的采集与分析系统。</p>
+          </article>
+          <article class="feature-card reveal">
+            <span>03</span>
+            <h3 data-i18n="practice.microfluidics">微流控与表面处理</h3>
+            <p data-i18n="practice.microfluidicsBody">在微观尺度进行精密控制，探索等离子体表面处理的应用。</p>
+          </article>
+        </div>
+
+        <div class="interest-panel reveal">
+          <div>
+            <p class="eyebrow">Field notes</p>
+            <h3 data-field="about-title">我关注什么</h3>
+          </div>
+          <div class="chips" id="about-chips"></div>
+        </div>
+      </section>
+
+      <section id="work" class="chapter chapter-work">
+        <div class="chapter-intro reveal">
+          <p class="chapter-number">02 / Work</p>
+          <h2 data-i18n="work.title">把想法变成可以测试的东西。</h2>
+          <p data-i18n="work.body">从生物医学工程、制造与装配，到面向真实约束的原型和流程改进。</p>
+        </div>
+
+        <section id="education" class="content-section reveal">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="education.eyebrow">Education</p>
+            <h3 data-i18n="education.title">教育背景</h3>
+          </div>
+          <div class="education-layout">
+            <div>
+              <h4 data-field="edu-school">The University of Sydney</h4>
+              <p class="meta-line" data-field="edu-degree">Bachelor of Engineering (Honours), Biomedical Engineering</p>
+              <p class="period" data-field="edu-period">2017年8月 - 2024年7月</p>
+            </div>
+            <div>
+              <p class="body-copy" data-field="edu-summary"></p>
+              <h4 class="thesis-title" data-field="thesis-title"></h4>
+              <p class="body-copy" data-field="thesis-body"></p>
+            </div>
+          </div>
+          <div class="coursework-list"></div>
+        </section>
+
+        <section id="projects" class="content-section reveal">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="projects.eyebrow">Practice</p>
+            <h3 data-i18n="projects.title">项目经历</h3>
+          </div>
+          <div class="cards"></div>
+        </section>
+
+        <section id="contributions" class="content-section reveal">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="contributions.eyebrow">Open Source</p>
+            <h3 data-i18n="contributions.title">开源贡献</h3>
+          </div>
+          <div class="cards"></div>
+        </section>
+
+        <section id="experience" class="content-section reveal">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="experience.eyebrow">Experience</p>
+            <h3 data-i18n="experience.title">工作经历</h3>
+          </div>
+          <div class="experience-list"></div>
+        </section>
+
+        <section id="skills" class="content-section reveal">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="skills.eyebrow">Skills</p>
+            <h3 data-i18n="skills.title">技能</h3>
+          </div>
+          <div class="skills-grid"></div>
+        </section>
+      </section>
+
+      <section class="contact-section reveal">
+        <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+        <h2 data-i18n="contact.title">联系我</h2>
+        <p data-i18n="contact.body">如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，欢迎联系。</p>
+        <div class="contact-row">
+          <span class="email-text" data-field="contact-email">jian45154@gmail.com</span>
+          <a href="https://github.com/jian45154" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/weihang-ian-jin-91941314a" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        </div>
+      </section>
     </main>
+
+    <footer>
+      <span data-field="footer-name">© 2026 金苇航 Ian</span>
+      <span data-field="hero-byline">作者 / Created by Lucien Auregin</span>
+    </footer>
+
     <script src="./script.js"></script>
   </body>
 </html>

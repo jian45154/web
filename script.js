@@ -1,221 +1,192 @@
-// Content loaded from JSON files
-let content = {};
-let currentLang = 'zh';
+document.documentElement.classList.add("js");
 
-// ── Load all content files ──────────────────────────────────────────────────
+let content = {};
+let currentLang = "zh";
+
 async function loadContent() {
-  const files = ['meta', 'about', 'education', 'projects', 'experience', 'skills', 'contributions'];
+  const files = ["meta", "about", "education", "projects", "experience", "skills", "contributions"];
   const results = await Promise.all(
     files.map(async (file) => {
       const response = await fetch(`./content/${file}.json`);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${file}.json (${response.status})`);
-      }
+      if (!response.ok) throw new Error(`Failed to load ${file}.json (${response.status})`);
       return response.json();
     })
   );
-  content = {
-    meta: results[0],
-    about: results[1],
-    education: results[2],
-    projects: results[3],
-    experience: results[4],
-    skills: results[5],
-    contributions: results[6],
-  };
+
+  [content.meta, content.about, content.education, content.projects, content.experience, content.skills, content.contributions] = results;
 }
 
-// ── Render helpers ──────────────────────────────────────────────────────────
-function t(obj) {
-  if (!obj) return '';
-  return (typeof obj === 'string') ? obj : (obj[currentLang] || obj.zh || obj.en || '');
+function t(value) {
+  if (!value) return "";
+  return typeof value === "string" ? value : value[currentLang] || value.zh || value.en || "";
+}
+
+function setText(selector, value) {
+  const node = document.querySelector(selector);
+  if (node) node.textContent = value;
 }
 
 function renderChips(items) {
-  return items.map(item => `<span>${item}</span>`).join('');
+  return items.map((item) => `<span>${item}</span>`).join("");
 }
 
-// ── Render sections ─────────────────────────────────────────────────────────
 function renderMeta() {
-  document.querySelectorAll('[data-i18n]').forEach(node => {
-    const key = node.getAttribute('data-i18n');
-    const val = translations[currentLang]?.[key];
-    if (val !== undefined) node.textContent = val;
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const value = translations[currentLang]?.[node.dataset.i18n];
+    if (value !== undefined) node.textContent = value;
   });
 
-  const isDetailsPage = document.body.classList.contains('details-page');
-  document.title = isDetailsPage
-    ? t({ zh: '经历 | 金苇航 Ian', en: 'Experience | Weihang (Ian) Jin' })
-    : t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' });
-  document.querySelector('meta[name="description"]')?.setAttribute('content',
-    isDetailsPage
-      ? t({ zh: '金苇航 Ian 的教育、项目与工作经历', en: 'Education, projects, and work experience of Weihang (Ian) Jin' })
-      : t({ zh: '金苇航 Ian 的个人主页', en: 'Personal portfolio of Weihang (Ian) Jin' }));
-  document.querySelector('meta[property="og:title"]')?.setAttribute('content',
-    t({ zh: '金苇航 Ian | 个人作品集', en: 'Weihang (Ian) Jin | Personal Portfolio' }));
+  const pageTitle = t({ zh: "金苇航 Ian | 个人作品集", en: "Weihang (Ian) Jin | Personal Portfolio" });
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]')?.setAttribute(
+    "content",
+    t({ zh: "金苇航 Ian 的个人作品集、项目与工作经历", en: "Portfolio, projects, and work experience of Weihang (Ian) Jin" })
+  );
+  document.querySelector('meta[property="og:title"]')?.setAttribute("content", pageTitle);
 }
 
 function renderHero() {
-  const m = content.meta;
-  if (!m?.name) return;
+  const meta = content.meta;
+  if (!meta) return;
 
-  const setText = (selector, value) => {
-    const node = document.querySelector(selector);
-    if (node) node.textContent = value;
-  };
-  setText('[data-field="brand-name"]', t(m.name));
-  setText('[data-field="hero-kicker"]', t(m.tagline));
-  setText('[data-field="hero-byline"]', t(m.byline));
+  setText('[data-field="brand-name"]', t(meta.name));
+  setText('[data-field="hero-kicker"]', t(meta.tagline));
+  setText('[data-field="hero-byline"]', t(meta.byline));
   setText('[data-field="hero-lead"]', t(content.about?.profile));
-  setText('[data-field="hero-title"]',
-    currentLang === 'zh'
-      ? '用工程方法做生物与人之间的连接，也保留对世界的好奇心。'
-      : 'I use engineering to connect biology and people, while staying curious about the world.');
-}
-
-function renderPortrait() {
-  document.querySelectorAll('.portrait').forEach(portrait => {
-    const img = document.createElement('img');
-    img.src = './assets/portrait.jpg';
-    img.alt = t(content.meta?.name) || 'Portrait';
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:999px;';
-    portrait.replaceChildren(img);
-  });
+  setText(
+    '[data-field="hero-title"]',
+    currentLang === "zh"
+      ? "用工程方法做生物与人之间的连接，也保留对世界的好奇心。"
+      : "I use engineering to connect biology and people, while staying curious about the world."
+  );
+  setText('[data-field="contact-email"]', meta.contact?.email || "");
 }
 
 function renderAbout() {
-  const a = content.about;
-  if (!a) return;
-  const body = document.querySelector('[data-field="about-body"]');
-  const title = document.querySelector('[data-field="about-title"]');
-  if (body) body.textContent = t(a.body);
-  if (title) title.textContent = t(a.title);
-  const chipsEl = document.querySelector('#about .chips');
-  if (chipsEl) chipsEl.innerHTML = renderChips(a.interests || []);
+  setText('[data-field="about-title"]', t(content.about?.title));
+  setText('[data-field="about-body"]', t(content.about?.body));
+  const chips = document.querySelector("#about-chips");
+  if (chips) chips.innerHTML = renderChips(content.about?.interests || []);
 }
 
 function renderEducation() {
-  const e = content.education;
-  if (!e) return;
+  const education = content.education;
+  const section = document.querySelector("#education");
+  if (!education || !section) return;
 
-  const section = document.querySelector('#education');
-  if (!section) return;
+  setText('[data-field="edu-school"]', education.school);
+  setText('[data-field="edu-degree"]', education.degree);
+  setText('[data-field="edu-period"]', t(education.period));
+  setText('[data-field="edu-summary"]', t(education.summary));
+  setText('[data-field="thesis-title"]', t(education.thesis?.title));
+  setText('[data-field="thesis-body"]', t(education.thesis?.body));
 
-  const cw = e.coursework || [];
-  const cwHtml = cw.map(g => `
-    <div class="coursework-group">
-      <h4>${g.category}</h4>
-      <ul>${g.items.map(i => `<li>${i}</li>`).join('')}</ul>
-    </div>
-  `).join('');
-
-  section.querySelector('[data-field="edu-school"]').textContent = e.school;
-  section.querySelector('[data-field="edu-degree"]').textContent = e.degree;
-  section.querySelector('[data-field="edu-period"]').textContent = t(e.period);
-  section.querySelector('[data-field="edu-summary"]').textContent = t(e.summary);
-  const cwList = section.querySelector('.coursework-list');
-  if (cwList) cwList.innerHTML = cwHtml;
-  section.querySelector('[data-field="thesis-title"]').textContent = t(e.thesis?.title);
-  section.querySelector('[data-field="thesis-body"]').textContent = t(e.thesis?.body);
+  section.querySelector(".coursework-list").innerHTML = (education.coursework || [])
+    .map(
+      (group) => `
+        <article class="coursework-group">
+          <h4>${group.category}</h4>
+          <ul>${group.items.map((item) => `<li>${item}</li>`).join("")}</ul>
+        </article>
+      `
+    )
+    .join("");
 }
 
 function renderProjects() {
-  const p = content.projects?.projects || [];
-  if (!p.length) return;
-
-  const section = document.querySelector('#projects');
+  const section = document.querySelector("#projects .cards");
   if (!section) return;
 
-  section.querySelector('.cards').innerHTML = p.map(proj => `
-    <article class="card project-card">
-      <div class="card-header">
-        <span class="card-period">${t(proj.period)}</span>
-        <span class="card-org">${t(proj.org)}</span>
-      </div>
-      <h4 class="card-title">${t(proj.title)}</h4>
-      <p class="card-tech">${proj.tech?.join(' · ')}</p>
-      <ul class="card-highlights">
-        ${proj.highlights[currentLang]?.map(h => `<li>${h}</li>`).join('') || ''}
-      </ul>
-    </article>
-  `).join('');
-}
-
-function renderExperience() {
-  const exps = content.experience?.experience || [];
-  if (!exps.length) return;
-
-  const section = document.querySelector('#experience');
-  if (!section) return;
-
-  section.querySelector('.experience-list').innerHTML = exps.map(exp => `
-    <article class="exp-item">
-      <div class="exp-header">
-        <div class="exp-left">
-          <h4 class="exp-title">${t(exp.title)}</h4>
-          <span class="exp-company">${exp.company} · ${exp.location}</span>
-        </div>
-        <span class="exp-period">${t(exp.period)}</span>
-      </div>
-      <ul class="exp-highlights">
-        ${exp.highlights[currentLang]?.map(h => `<li>${h}</li>`).join('') || ''}
-      </ul>
-    </article>
-  `).join('');
+  section.innerHTML = (content.projects?.projects || [])
+    .map(
+      (project) => `
+        <article class="card">
+          <div class="card-header">
+            <span class="card-period">${t(project.period)}</span>
+            <span class="card-org">${t(project.org)}</span>
+          </div>
+          <h4 class="card-title">${t(project.title)}</h4>
+          <p class="card-tech">${project.tech?.join(" · ") || ""}</p>
+          <ul class="card-highlights">
+            ${(project.highlights?.[currentLang] || []).map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        </article>
+      `
+    )
+    .join("");
 }
 
 function renderContributions() {
-  const contribs = content.contributions?.contributions || [];
-  if (!contribs.length) return;
-
-  const section = document.querySelector('#contributions');
+  const section = document.querySelector("#contributions .cards");
   if (!section) return;
 
-  section.querySelector('.cards').innerHTML = contribs.map(c => `
-    <article class="card contrib-card">
-      <div class="card-header">
-        <span class="card-period">${t(c.period)}</span>
-        <a class="card-repo" href="${c.url}" target="_blank" rel="noopener noreferrer">${c.repo}</a>
-      </div>
-      <h4 class="card-title">${t(c.title)}</h4>
-      <p class="card-tech">${c.tech?.join(' · ')}</p>
-      <ul class="card-highlights">
-        ${c.highlights[currentLang]?.map(h => `<li>${h}</li>`).join('') || ''}
-      </ul>
-    </article>
-  `).join('');
+  section.innerHTML = (content.contributions?.contributions || [])
+    .map(
+      (contribution) => `
+        <article class="card">
+          <div class="card-header">
+            <span class="card-period">${t(contribution.period)}</span>
+            <a class="card-repo" href="${contribution.url}" target="_blank" rel="noopener noreferrer">${contribution.repo} ↗</a>
+          </div>
+          <h4 class="card-title">${t(contribution.title)}</h4>
+          <p class="card-tech">${contribution.tech?.join(" · ") || ""}</p>
+          <ul class="card-highlights">
+            ${(contribution.highlights?.[currentLang] || []).map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function renderExperience() {
+  const section = document.querySelector("#experience .experience-list");
+  if (!section) return;
+
+  section.innerHTML = (content.experience?.experience || [])
+    .map(
+      (experience) => `
+        <article class="exp-item">
+          <div class="exp-header">
+            <div>
+              <h4 class="exp-title">${t(experience.title)}</h4>
+              <span class="exp-company">${experience.company} · ${experience.location}</span>
+            </div>
+            <span class="exp-period">${t(experience.period)}</span>
+          </div>
+          <ul class="exp-highlights">
+            ${(experience.highlights?.[currentLang] || []).map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        </article>
+      `
+    )
+    .join("");
 }
 
 function renderSkills() {
-  const skills = content.skills?.skills || [];
-  if (!skills.length) return;
-
-  const section = document.querySelector('#skills');
+  const section = document.querySelector("#skills .skills-grid");
   if (!section) return;
 
-  section.querySelector('.skills-grid').innerHTML = skills.map(s => `
-    <div class="skill-group">
-      <h4 class="skill-category">${s.category}</h4>
-      <div class="chips">
-        ${s.items.map(i => `<span>${i}</span>`).join('')}
-      </div>
-    </div>
-  `).join('');
+  section.innerHTML = (content.skills?.skills || [])
+    .map(
+      (skill) => `
+        <article class="skill-group">
+          <h4 class="skill-category">${skill.category}</h4>
+          <div class="chips">${renderChips(skill.items)}</div>
+        </article>
+      `
+    )
+    .join("");
 }
 
 function renderFooter() {
   const year = new Date().getFullYear();
-  const name = t(content.meta?.name) || '金苇航 Ian';
-  const footer = document.querySelector('[data-field="footer-name"]');
-  if (footer) footer.textContent = `© ${year} ${name}`;
+  setText('[data-field="footer-name"]', `© ${year} ${t(content.meta?.name) || "金苇航 Ian"}`);
 }
 
-// ── Full render ─────────────────────────────────────────────────────────────
-async function render() {
-  await loadContent();
+function render() {
   renderMeta();
   renderHero();
-  renderPortrait();
   renderAbout();
   renderEducation();
   renderProjects();
@@ -224,122 +195,122 @@ async function render() {
   renderSkills();
   renderFooter();
 }
-
-// ── Language switching ──────────────────────────────────────────────────────
-const translations = {
-  zh: {
-    'brand.eyebrow': '个人作品集 / Portfolio',
-    'hero.cta_primary': '查看实践',
-    'hero.cta_secondary': '了解更多',
-    'stats.title1': '方向',
-    'stats.title2': '身份',
-    'stats.title3': '地点',
-    'about.eyebrow': 'About',
-    'about.title': '我关注什么',
-    'projects.eyebrow': 'Practice',
-    'projects.title': '项目经历',
-    'education.eyebrow': 'Education',
-    'education.title': '教育背景',
-    'contributions.eyebrow': 'Open Source',
-    'contributions.title': '开源贡献',
-    'experience.eyebrow': 'Experience',
-    'experience.title': '工作经历',
-    'skills.eyebrow': 'Skills',
-    'skills.title': '技能',
-    'contact.eyebrow': 'Contact',
-    'contact.title': '联系我',
-    'contact.body': '如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，可以通过 GitHub 了解更多。',
-    'contact.link': 'GitHub · @jian45154',
-    'footer.credit': '由 Lucien Auregin 设计与构建',
-    'home.explore': '了解我的经历',
-    'home.location': '悉尼 / 线上',
-    'home.focus': '生物医学工程',
-    'details.back': '返回主页',
-    'details.eyebrow': '个人档案 / Profile',
-    'details.experience': '工作经历',
-    'details.projects': '项目经历',
-  },
-  en: {
-    'brand.eyebrow': 'Portfolio / 个人作品集',
-    'hero.cta_primary': 'View Practice',
-    'hero.cta_secondary': 'About Me',
-    'stats.title1': 'Focus',
-    'stats.title2': 'Identity',
-    'stats.title3': 'Location',
-    'about.eyebrow': 'About',
-    'about.title': 'What I care about',
-    'projects.eyebrow': 'Practice',
-    'projects.title': 'Project Experience',
-    'education.eyebrow': 'Education',
-    'education.title': 'Education',
-    'contributions.eyebrow': 'Open Source',
-    'contributions.title': 'Open Source Contributions',
-    'experience.eyebrow': 'Experience',
-    'experience.title': 'Work Experience',
-    'skills.eyebrow': 'Skills',
-    'skills.title': 'Skills',
-    'contact.eyebrow': 'Contact',
-    'contact.title': 'Get in touch',
-    'contact.body': 'For collaboration, technical exchange, or an interdisciplinary idea worth exploring, find me on GitHub.',
-    'contact.link': 'GitHub · @jian45154',
-    'footer.credit': 'Designed and built by Lucien Auregin',
-    'home.explore': 'Explore my experience',
-    'home.location': 'Sydney / Online',
-    'home.focus': 'Biomedical Engineering',
-    'details.back': 'Back home',
-    'details.eyebrow': 'Profile / 个人档案',
-    'details.experience': 'Work experience',
-    'details.projects': 'Projects',
-  },
-};
 
 function applyLanguage(lang) {
-  if (!translations[lang]) lang = 'zh';
-  currentLang = lang;
+  currentLang = translations[lang] ? lang : "zh";
+  document.documentElement.lang = currentLang === "en" ? "en" : "zh-CN";
+  localStorage.setItem("site-lang", currentLang);
 
-  // Toggle [data-lang] visibility
-  document.querySelectorAll('[data-lang]:not(.lang-btn)').forEach(el => {
-    el.style.display = el.dataset.lang === lang ? '' : 'none';
+  document.querySelectorAll(".lang-btn").forEach((button) => {
+    const active = button.dataset.lang === currentLang;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
 
-  // Update lang buttons
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    const isActive = btn.dataset.lang === lang;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-pressed', String(isActive));
-  });
-
-  document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
-  localStorage.setItem('site-lang', lang);
-
-  // Re-render content with new language
-  renderMeta();
-  renderHero();
-  renderAbout();
-  renderEducation();
-  renderProjects();
-  renderContributions();
-  renderExperience();
-  renderSkills();
-  renderFooter();
+  render();
 }
 
-// ── Init ────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    await render();
-  } catch (error) {
-    console.error('Unable to load portfolio content:', error);
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.disabled = true;
-    });
+function initReveal() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".reveal").forEach((node) => node.classList.add("is-visible"));
     return;
   }
 
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
-  });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
 
-  const savedLang = localStorage.getItem('site-lang');
-  if (savedLang) applyLanguage(savedLang);
+  document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+}
+
+const translations = {
+  zh: {
+    "nav.personal": "业余",
+    "nav.work": "工作",
+    "hero.personal": "业余与好奇",
+    "hero.personalNote": "摄影、骑行、自然与动手探索",
+    "hero.work": "工作与实践",
+    "hero.workNote": "工程、项目、经历与技能",
+    "home.location": "悉尼 / 线上",
+    "portrait.caption": "在路上观察，也在工作台上验证。",
+    "personal.title": "业余，是另一种认真。",
+    "practice.prototype": "3D 打印与快速原型",
+    "practice.prototypeBody": "将创意转化为可触摸的实物，从概念验证到功能原型。",
+    "practice.signal": "嵌入式开发与生物信号处理",
+    "practice.signalBody": "连接传感器、控制与算法，构建完整的采集与分析系统。",
+    "practice.microfluidics": "微流控与表面处理",
+    "practice.microfluidicsBody": "在微观尺度进行精密控制，探索等离子体表面处理的应用。",
+    "work.title": "把想法变成可以测试的东西。",
+    "work.body": "从生物医学工程、制造与装配，到面向真实约束的原型和流程改进。",
+    "education.eyebrow": "Education",
+    "education.title": "教育背景",
+    "projects.eyebrow": "Practice",
+    "projects.title": "项目经历",
+    "contributions.eyebrow": "Open Source",
+    "contributions.title": "开源贡献",
+    "experience.eyebrow": "Experience",
+    "experience.title": "工作经历",
+    "skills.eyebrow": "Skills",
+    "skills.title": "技能",
+    "contact.eyebrow": "Contact",
+    "contact.title": "联系我",
+    "contact.body": "如果你对项目合作、技术交流，或任何值得探索的跨学科话题感兴趣，欢迎联系。"
+  },
+  en: {
+    "nav.personal": "Personal",
+    "nav.work": "Work",
+    "hero.personal": "Life & curiosity",
+    "hero.personalNote": "Photography, cycling, nature, and making",
+    "hero.work": "Work & practice",
+    "hero.workNote": "Engineering, projects, experience, and skills",
+    "home.location": "Sydney / Online",
+    "portrait.caption": "Observing outdoors, validating at the workbench.",
+    "personal.title": "Personal pursuits, taken seriously.",
+    "practice.prototype": "3D Printing & Rapid Prototyping",
+    "practice.prototypeBody": "Turning ideas into tangible forms, from proof of concept to functional prototypes.",
+    "practice.signal": "Embedded Development & Bio-signal Processing",
+    "practice.signalBody": "Connecting sensors, control, and algorithms into complete acquisition and analysis systems.",
+    "practice.microfluidics": "Microfluidics & Surface Treatment",
+    "practice.microfluidicsBody": "Working with precision at micro scale and exploring plasma surface treatment.",
+    "work.title": "Turning ideas into testable things.",
+    "work.body": "From biomedical engineering and manufacturing to prototypes and process improvements shaped by real constraints.",
+    "education.eyebrow": "Education",
+    "education.title": "Education",
+    "projects.eyebrow": "Practice",
+    "projects.title": "Projects",
+    "contributions.eyebrow": "Open Source",
+    "contributions.title": "Open Source Contributions",
+    "experience.eyebrow": "Experience",
+    "experience.title": "Work Experience",
+    "skills.eyebrow": "Skills",
+    "skills.title": "Skills",
+    "contact.eyebrow": "Contact",
+    "contact.title": "Get in touch",
+    "contact.body": "For collaboration, technical exchange, or an interdisciplinary idea worth exploring, feel free to reach out."
+  }
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await loadContent();
+    applyLanguage(localStorage.getItem("site-lang") || "zh");
+    initReveal();
+  } catch (error) {
+    console.error("Unable to load portfolio content:", error);
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.disabled = true;
+    });
+  }
+
+  document.querySelectorAll(".lang-btn").forEach((button) => {
+    button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+  });
 });
