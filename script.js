@@ -4,7 +4,7 @@ let currentLang = 'zh';
 
 // ── Load all content files ──────────────────────────────────────────────────
 async function loadContent() {
-  const files = ['meta', 'about', 'education', 'projects', 'experience', 'skills'];
+  const files = ['meta', 'about', 'education', 'projects', 'experience', 'skills', 'contributions'];
   const results = await Promise.all(
     files.map(f => fetch(`./content/${f}.json`).then(r => r.json()).catch(() => ({})))
   );
@@ -15,6 +15,7 @@ async function loadContent() {
     projects: results[3],
     experience: results[4],
     skills: results[5],
+    contributions: results[6],
   };
 }
 
@@ -30,7 +31,6 @@ function renderChips(items) {
 
 // ── Render sections ─────────────────────────────────────────────────────────
 function renderMeta() {
-  const m = content.meta;
   document.querySelectorAll('[data-i18n]').forEach(node => {
     const key = node.getAttribute('data-i18n');
     const val = translations[currentLang]?.[key];
@@ -46,7 +46,7 @@ function renderMeta() {
 
 function renderHero() {
   const m = content.meta;
-  if (!m.name) return;
+  if (!m?.name) return;
 
   document.querySelector('[data-field="brand-name"]').textContent = t(m.name);
   document.querySelector('[data-field="hero-kicker"]').textContent = t(m.tagline);
@@ -60,6 +60,7 @@ function renderHero() {
 
 function renderPortrait() {
   const portrait = document.querySelector('.portrait');
+  if (!portrait) return;
   const img = document.createElement('img');
   img.src = './assets/portrait.jpg';
   img.alt = t(content.meta?.name) || 'Portrait';
@@ -73,7 +74,8 @@ function renderAbout() {
   if (!a) return;
   document.querySelector('[data-field="about-body"]').textContent = t(a.body);
   document.querySelector('[data-field="about-title"]').textContent = t(a.title);
-  document.querySelector('#about .chips').innerHTML = renderChips(a.interests || []);
+  const chipsEl = document.querySelector('#about .chips');
+  if (chipsEl) chipsEl.innerHTML = renderChips(a.interests || []);
 }
 
 function renderEducation() {
@@ -95,7 +97,8 @@ function renderEducation() {
   section.querySelector('[data-field="edu-degree"]').textContent = e.degree;
   section.querySelector('[data-field="edu-period"]').textContent = t(e.period);
   section.querySelector('[data-field="edu-summary"]').textContent = t(e.summary);
-  section.querySelector('.coursework-list').innerHTML = cwHtml;
+  const cwList = section.querySelector('.coursework-list');
+  if (cwList) cwList.innerHTML = cwHtml;
   section.querySelector('[data-field="thesis-title"]').textContent = t(e.thesis?.title);
   section.querySelector('[data-field="thesis-body"]').textContent = t(e.thesis?.body);
 }
@@ -145,6 +148,28 @@ function renderExperience() {
   `).join('');
 }
 
+function renderContributions() {
+  const contribs = content.contributions?.contributions || [];
+  if (!contribs.length) return;
+
+  const section = document.querySelector('#contributions');
+  if (!section) return;
+
+  section.querySelector('.cards').innerHTML = contribs.map(c => `
+    <article class="card contrib-card">
+      <div class="card-header">
+        <span class="card-period">${t(c.period)}</span>
+        <a class="card-repo" href="${c.url}" target="_blank" rel="noopener noreferrer">${c.repo}</a>
+      </div>
+      <h4 class="card-title">${t(c.title)}</h4>
+      <p class="card-tech">${c.tech?.join(' · ')}</p>
+      <ul class="card-highlights">
+        ${c.highlights[currentLang]?.map(h => `<li>${h}</li>`).join('') || ''}
+      </ul>
+    </article>
+  `).join('');
+}
+
 function renderSkills() {
   const skills = content.skills?.skills || [];
   if (!skills.length) return;
@@ -177,6 +202,7 @@ async function render() {
   renderAbout();
   renderEducation();
   renderProjects();
+  renderContributions();
   renderExperience();
   renderSkills();
   renderFooter();
@@ -192,10 +218,13 @@ const translations = {
     'stats.title2': '身份',
     'stats.title3': '地点',
     'about.eyebrow': 'About',
+    'about.title': '我关注什么',
     'projects.eyebrow': 'Practice',
     'projects.title': '项目经历',
     'education.eyebrow': 'Education',
     'education.title': '教育背景',
+    'contributions.eyebrow': 'Open Source',
+    'contributions.title': '开源贡献',
     'experience.eyebrow': 'Experience',
     'experience.title': '工作经历',
     'skills.eyebrow': 'Skills',
@@ -219,6 +248,8 @@ const translations = {
     'projects.title': 'Project Experience',
     'education.eyebrow': 'Education',
     'education.title': 'Education',
+    'contributions.eyebrow': 'Open Source',
+    'contributions.title': 'Open Source Contributions',
     'experience.eyebrow': 'Experience',
     'experience.title': 'Work Experience',
     'skills.eyebrow': 'Skills',
@@ -255,6 +286,7 @@ function applyLanguage(lang) {
   renderAbout();
   renderEducation();
   renderProjects();
+  renderContributions();
   renderExperience();
   renderSkills();
   renderFooter();

@@ -1,0 +1,24 @@
+{
+  "contributions": [
+    {
+      "repo": "murongg/markra",
+      "title": {
+        "zh": "Markra - WYSIWYG Markdown 编辑器贡献",
+        "en": "Markra - WYSIWYG Markdown Editor"
+      },
+      "url": "https://github.com/murongg/markra",
+      "period": { "zh": "2026年6月", "en": "Jun 2026" },
+      "tech": ["TypeScript", "React", "Markdown"],
+      "highlights": {
+        "zh": [
+          "修复编辑器模式切换时滚动进度丢失的问题 (#226, #227)",
+          "A WYSIWYG Markdown 编辑器，支持本地 AI，完全开源，数据留存在本地"
+        ],
+        "en": [
+          "Fixed scroll progress not being preserved when switching between editor modes (#226, #227)",
+          "A WYSIWYG Markdown editor with native AI. Fully open source, free to use, data stays local."
+        ]
+      }
+    }
+  ]
+}
